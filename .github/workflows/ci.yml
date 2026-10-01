@@ -1,0 +1,19 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev]
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  pipeline:
+    uses: Pawiacl/pcl-workflows/.github/workflows/build-deploy.yml@main
+    with:
+      container-app: ca-pcl-gateway-dev
+      deploy: ${{ github.event_name == 'push' }}
